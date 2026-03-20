@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan route:list --path=navigation)",
+      "Bash(php artisan make:migration add_soft_deletes_to_roles_table --table=roles)",
+      "Bash(./vendor/bin/sail artisan make:migration add_soft_deletes_to_roles_table --table=roles)",
+      "Bash(where php)",
+      "Bash(\"C:\\Users\\Iztok\\.config\\herd\\bin\\php.bat\" artisan migrate)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

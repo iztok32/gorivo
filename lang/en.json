@@ -97,5 +97,19 @@
     "Show Active Only": "Show Active Only",
     "Metadata Settings": "Metadata Settings",
     "Plan (Team)": "Plan (Team)",
-    "Custom Metadata (JSON)": "Custom Metadata (JSON)"
+    "Custom Metadata (JSON)": "Custom Metadata (JSON)",
+    "Roles Management": "Roles Management",
+    "Roles": "Roles",
+    "User Roles": "User Roles",
+    "Add New Role": "Add New Role",
+    "Slug": "Slug",
+    "No roles found.": "No roles found.",
+    "Edit Role": "Edit Role",
+    "Configure your user role here. Click save when you're done.": "Configure your user role here. Click save when you're done.",
+    "Are you sure you want to delete this role? This action cannot be undone.": "Are you sure you want to delete this role? This action cannot be undone.",
+    "Update Role": "Update Role",
+    "Create Role": "Create Role",
+    "Administrator": "Administrator",
+    "administrator (leave empty to auto-generate)": "administrator (leave empty to auto-generate)",
+    "Unique identifier for this role. If left empty, it will be automatically generated from the name.": "Unique identifier for this role. If left empty, it will be automatically generated from the name."
 }

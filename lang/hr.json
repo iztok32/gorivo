@@ -96,5 +96,19 @@
     "Show Active Only": "Prikaži samo aktivne",
     "Metadata Settings": "Postavke metapodataka",
     "Plan (Team)": "Plan (Tim)",
-    "Custom Metadata (JSON)": "Prilagođeni metapodaci (JSON)"
+    "Custom Metadata (JSON)": "Prilagođeni metapodaci (JSON)",
+    "Roles Management": "Upravljanje ulogama",
+    "Roles": "Uloge",
+    "User Roles": "Korisničke uloge",
+    "Add New Role": "Dodaj novu ulogu",
+    "Slug": "Slug",
+    "No roles found.": "Nema pronađenih uloga.",
+    "Edit Role": "Uredi ulogu",
+    "Configure your user role here. Click save when you're done.": "Ovdje konfigurirajte korisničku ulogu. Kliknite spremi kada završite.",
+    "Are you sure you want to delete this role? This action cannot be undone.": "Jeste li sigurni da želite obrisati ovu ulogu? Ova radnja se ne može poništiti.",
+    "Update Role": "Ažuriraj ulogu",
+    "Create Role": "Izradi ulogu",
+    "Administrator": "Administrator",
+    "administrator (leave empty to auto-generate)": "administrator (ostavite prazno za automatsko generiranje)",
+    "Unique identifier for this role. If left empty, it will be automatically generated from the name.": "Jedinstveni identifikator za ovu ulogu. Ako je prazno, automatski će se generirati iz imena."
 }

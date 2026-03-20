@@ -97,5 +97,19 @@
     "Show Active Only": "Prikaži samo aktivne",
     "Metadata Settings": "Nastavitve metapodatkov",
     "Plan (Team)": "Plan (Ekipa)",
-    "Custom Metadata (JSON)": "Poljubni metapodatki (JSON)"
+    "Custom Metadata (JSON)": "Poljubni metapodatki (JSON)",
+    "Roles Management": "Upravljanje vlog",
+    "Roles": "Vloge",
+    "User Roles": "Uporabniške vloge",
+    "Add New Role": "Dodaj novo vlogo",
+    "Slug": "Slug",
+    "No roles found.": "Ni najdenih vlog.",
+    "Edit Role": "Uredi vlogo",
+    "Configure your user role here. Click save when you're done.": "Tukaj konfigurirajte uporabniško vlogo. Kliknite shrani, ko končate.",
+    "Are you sure you want to delete this role? This action cannot be undone.": "Ali ste prepričani, da želite izbrisati to vlogo? Tega dejanja ni mogoče razveljaviti.",
+    "Update Role": "Posodobi vlogo",
+    "Create Role": "Ustvari vlogo",
+    "Administrator": "Administrator",
+    "administrator (leave empty to auto-generate)": "administrator (pustite prazno za samodejno generiranje)",
+    "Unique identifier for this role. If left empty, it will be automatically generated from the name.": "Unikaten identifikator za to vlogo. Če je prazno, se bo samodejno generiral iz imena."
 }
