@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('roles-permissions', [\App\Http\Controllers\Core\RolesPermissionsController::class, 'index'])->name('roles-permissions.index');
     Route::post('roles-permissions/toggle', [\App\Http\Controllers\Core\RolesPermissionsController::class, 'togglePermission'])->name('roles-permissions.toggle');
+    Route::post('roles-permissions/toggle-navigation', [\App\Http\Controllers\Core\RolesPermissionsController::class, 'toggleNavigationVisibility'])->name('roles-permissions.toggle-navigation');
 
     Route::resource('users', \App\Http\Controllers\Core\UsersController::class)->except(['create', 'edit', 'show']);
     Route::post('users/send-password-reset', [\App\Http\Controllers\Core\UsersController::class, 'sendPasswordResetLink'])->name('users.send-password-reset');

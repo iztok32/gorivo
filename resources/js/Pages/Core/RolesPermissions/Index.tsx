@@ -29,17 +29,28 @@ interface ModulePermissions {
     total_count: number;
 }
 
+interface NavigationPreview {
+    configs: Record<string, string>;
+    blocks: {
+        type: string;
+        group: string;
+        label: string;
+        items: any[];
+    }[];
+}
+
 interface Props {
     roles: Role[];
     selectedRole: Role | null;
     sidebarPermissions: ModulePermissions[];
     nonSidebarPermissions: ModulePermissions[];
+    navigationPreview: NavigationPreview | null;
     standardPermissions: string[];
     canEditRole: boolean;
     isSuperAdmin: boolean;
 }
 
-export default function Index({ roles, selectedRole, sidebarPermissions, nonSidebarPermissions, standardPermissions, canEditRole, isSuperAdmin }: Props) {
+export default function Index({ roles, selectedRole, sidebarPermissions, nonSidebarPermissions, navigationPreview, standardPermissions, canEditRole, isSuperAdmin }: Props) {
     const { t } = useTranslation();
 
     const handleRoleSelect = (roleId: number) => {
@@ -64,6 +75,7 @@ export default function Index({ roles, selectedRole, sidebarPermissions, nonSide
                 selectedRole={selectedRole}
                 sidebarPermissions={sidebarPermissions}
                 nonSidebarPermissions={nonSidebarPermissions}
+                navigationPreview={navigationPreview}
                 standardPermissions={standardPermissions}
                 onRoleSelect={handleRoleSelect}
                 canEditRole={canEditRole}

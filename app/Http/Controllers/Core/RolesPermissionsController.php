@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\Permission;
 use App\Models\Module;
+use App\Models\NavigationItem;
+use App\Models\NavigationConfig;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -147,11 +149,18 @@ class RolesPermissionsController extends Controller
         $sidebarPermissions = $sidebarModules->map($buildPermissionsArray)->values();
         $nonSidebarPermissions = $nonSidebarModules->map($buildPermissionsArray)->values();
 
+        // Build navigation preview for selected role
+        $navigationPreview = null;
+        if ($selectedRole) {
+            $navigationPreview = $this->buildNavigationPreview($selectedRole);
+        }
+
         return Inertia::render('Core/RolesPermissions/Index', [
             'roles' => $roles,
             'selectedRole' => $selectedRole,
             'sidebarPermissions' => $sidebarPermissions,
             'nonSidebarPermissions' => $nonSidebarPermissions,
+            'navigationPreview' => $navigationPreview,
             'standardPermissions' => self::STANDARD_PERMISSIONS,
             'canEditRole' => $canEditRole,
             'isSuperAdmin' => $isSuperAdmin,
@@ -202,5 +211,153 @@ class RolesPermissionsController extends Controller
             $role->permissions()->attach($permissionId);
             return redirect()->back()->with('success', 'Permission assigned to role');
         }
+    }
+
+    /**
+     * Build navigation preview for a specific role
+     * Shows ALL navigation items that the CURRENT USER can see,
+     * with toggle switches to control visibility for the selected role
+     */
+    protected function buildNavigationPreview($role)
+    {
+        // Get CURRENT user's permissions
+        $currentUser = request()->user();
+        $currentUserPermissions = is_array($currentUser->permissions)
+            ? $currentUser->permissions
+            : $currentUser->permissions->toArray();
+        $currentUserRoleSlugs = $currentUser->roles->pluck('slug')->toArray();
+
+        // Get navigation configs and items (based on CURRENT USER, not selected role)
+        $blocks = NavigationConfig::orderBy('sort_order')->get()->map(function ($config) use ($currentUser, $currentUserPermissions, $currentUserRoleSlugs) {
+            // Get navigation items that CURRENT USER can see
+            $items = NavigationItem::where('type', $config->type)
+                ->whereNull('parent_id')
+                ->where('is_active', true)
+                ->when($currentUser, function ($q) use ($currentUserPermissions) {
+                    $q->where(function ($sq) use ($currentUserPermissions) {
+                        // Check permission field
+                        $sq->whereNull('permission')
+                           ->orWhereIn('permission', $currentUserPermissions);
+                    });
+                })
+                ->when($currentUser, function ($q) use ($currentUserRoleSlugs) {
+                    $q->where(function ($sq) use ($currentUserRoleSlugs) {
+                        // Check allowed_roles field
+                        $sq->whereNull('allowed_roles');
+                        foreach ($currentUserRoleSlugs as $slug) {
+                            $sq->orWhereRaw("allowed_roles::jsonb @> ?", [json_encode([$slug])]);
+                        }
+                    });
+                })
+                ->with(['children' => function($query) use ($currentUserPermissions, $currentUserRoleSlugs) {
+                    $query->where('is_active', true)
+                        ->where(function ($sq) use ($currentUserPermissions) {
+                            // Check permission field
+                            $sq->whereNull('permission')
+                               ->orWhereIn('permission', $currentUserPermissions);
+                        })
+                        ->where(function ($sq) use ($currentUserRoleSlugs) {
+                            // Check allowed_roles field
+                            $sq->whereNull('allowed_roles');
+                            foreach ($currentUserRoleSlugs as $slug) {
+                                $sq->orWhereRaw("allowed_roles::jsonb @> ?", [json_encode([$slug])]);
+                            }
+                        })
+                        ->orderBy('sort_order');
+                }])
+                ->orderBy('sort_order')
+                ->get();
+
+            // Filter items based on module.view permission for CURRENT USER
+            $items = $items->filter(function ($item) use ($currentUserPermissions) {
+                return $this->canViewNavigationItemForRole($item, $currentUserPermissions);
+            })->map(function ($item) use ($currentUserPermissions) {
+                // Also filter children
+                if ($item->children) {
+                    $item->children = $item->children->filter(function ($child) use ($currentUserPermissions) {
+                        return $this->canViewNavigationItemForRole($child, $currentUserPermissions);
+                    });
+                }
+                return $item;
+            })->values();
+
+            return [
+                'type' => $config->type,
+                'group' => $config->group,
+                'label' => $config->label,
+                'items' => $items,
+            ];
+        });
+
+        return [
+            'configs' => NavigationConfig::all()->pluck('label', 'type'),
+            'blocks' => $blocks,
+        ];
+    }
+
+    /**
+     * Check if role can view a navigation item based on module.view permission
+     */
+    protected function canViewNavigationItemForRole($item, $rolePermissions): bool
+    {
+        // If item has no URL, allow it
+        if (!$item->url) {
+            return true;
+        }
+
+        // Get the module for this navigation item URL
+        $url = ltrim($item->url, '/');
+        $module = Module::where('web_root', $url)
+            ->orWhere('web_root', '/' . $url)
+            ->first();
+
+        // If no module found, allow item
+        if (!$module) {
+            return true;
+        }
+
+        // Check if role has module.view permission
+        $viewPermission = $module->name . '.view';
+
+        return in_array($viewPermission, $rolePermissions);
+    }
+
+    /**
+     * Toggle navigation item visibility for a role
+     */
+    public function toggleNavigationVisibility(Request $request)
+    {
+        $validated = $request->validate([
+            'role_slug' => 'required|exists:roles,slug',
+            'navigation_item_id' => 'required|exists:navigation_items,id',
+        ]);
+
+        $navigationItem = NavigationItem::findOrFail($validated['navigation_item_id']);
+        $roleSlug = $validated['role_slug'];
+
+        // Get current allowed_roles
+        $allowedRoles = $navigationItem->allowed_roles;
+
+        if ($allowedRoles === null) {
+            // Currently visible to ALL roles
+            // Toggle OFF: Get all role slugs EXCEPT current role
+            $allRoleSlugs = \App\Models\Role::pluck('slug')->toArray();
+            $allowedRoles = array_values(array_diff($allRoleSlugs, [$roleSlug]));
+        } else {
+            // Currently restricted to specific roles
+            if (in_array($roleSlug, $allowedRoles)) {
+                // Role is in list - remove it (toggle OFF)
+                $allowedRoles = array_values(array_diff($allowedRoles, [$roleSlug]));
+            } else {
+                // Role is NOT in list - add it (toggle ON)
+                $allowedRoles[] = $roleSlug;
+            }
+        }
+
+        // Save (set to null if empty array = nobody can see, which shouldn't happen)
+        $navigationItem->allowed_roles = empty($allowedRoles) ? null : $allowedRoles;
+        $navigationItem->save();
+
+        return redirect()->back()->with('success', 'Navigation visibility updated');
     }
 }
