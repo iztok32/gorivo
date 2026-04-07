@@ -28,6 +28,10 @@ class DatabaseSeeder extends Seeder
         // 5. Navigation Items - zadnja, ker reference permissions in navigation_configs
         $this->call(NavigationSeeder::class);
 
+        // 6. Equipment moduli (insertOrIgnore - varno za ponovni zagon)
+        $this->call(VehiclesModuleSeeder::class);
+        $this->call(RefuelingsModuleSeeder::class);
+
         $this->command->info('');
         $this->command->info('========================================');
         $this->command->info('All seeders completed successfully!');

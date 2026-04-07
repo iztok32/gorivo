@@ -102,6 +102,36 @@ Route::middleware('auth')->group(function () {
         Route::delete('articles/{article}', [\App\Http\Controllers\Core\ArticlesController::class, 'destroy'])->name('articles.destroy');
     });
 
+    // Refuelings routes with permission middleware
+    Route::middleware('permission:refuelings.view')->group(function () {
+        Route::get('equipment/refuelings', [\App\Http\Controllers\Equipment\RefuelingsController::class, 'index'])->name('refuelings.index');
+    });
+    Route::middleware('permission:refuelings.create')->group(function () {
+        Route::post('equipment/refuelings', [\App\Http\Controllers\Equipment\RefuelingsController::class, 'store'])->name('refuelings.store');
+    });
+    Route::middleware('permission:refuelings.edit')->group(function () {
+        Route::put('equipment/refuelings/{refueling}', [\App\Http\Controllers\Equipment\RefuelingsController::class, 'update'])->name('refuelings.update');
+        Route::patch('equipment/refuelings/{refueling}', [\App\Http\Controllers\Equipment\RefuelingsController::class, 'update']);
+    });
+    Route::middleware('permission:refuelings.delete')->group(function () {
+        Route::delete('equipment/refuelings/{refueling}', [\App\Http\Controllers\Equipment\RefuelingsController::class, 'destroy'])->name('refuelings.destroy');
+    });
+
+    // Vehicles routes with permission middleware
+    Route::middleware('permission:vehicles.view')->group(function () {
+        Route::get('equipment/vehicles', [\App\Http\Controllers\Equipment\VehiclesController::class, 'index'])->name('vehicles.index');
+    });
+    Route::middleware('permission:vehicles.create')->group(function () {
+        Route::post('equipment/vehicles', [\App\Http\Controllers\Equipment\VehiclesController::class, 'store'])->name('vehicles.store');
+    });
+    Route::middleware('permission:vehicles.edit')->group(function () {
+        Route::put('equipment/vehicles/{vehicle}', [\App\Http\Controllers\Equipment\VehiclesController::class, 'update'])->name('vehicles.update');
+        Route::patch('equipment/vehicles/{vehicle}', [\App\Http\Controllers\Equipment\VehiclesController::class, 'update']);
+    });
+    Route::middleware('permission:vehicles.delete')->group(function () {
+        Route::delete('equipment/vehicles/{vehicle}', [\App\Http\Controllers\Equipment\VehiclesController::class, 'destroy'])->name('vehicles.destroy');
+    });
+
     Route::get('user/config', [\App\Http\Controllers\UserConfigController::class, 'show'])->name('user.config.show');
     Route::post('user/config', [\App\Http\Controllers\UserConfigController::class, 'update'])->name('user.config.update');
     Route::post('user/config/batch', [\App\Http\Controllers\UserConfigController::class, 'updateBatch'])->name('user.config.batch');

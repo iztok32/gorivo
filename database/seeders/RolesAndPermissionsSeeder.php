@@ -93,11 +93,25 @@ class RolesAndPermissionsSeeder extends Seeder
             ['id' => 51, 'name' => 'Is global Roles-permissions', 'slug' => 'roles-permissions.is_global', 'module' => 'roles-permissions', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
 
             // Articles
-            ['id' => 52, 'name' => 'View Articles', 'slug' => 'articles.view', 'module' => 'articles', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 53, 'name' => 'Create Articles', 'slug' => 'articles.create', 'module' => 'articles', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 54, 'name' => 'Edit Articles', 'slug' => 'articles.edit', 'module' => 'articles', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 55, 'name' => 'Delete Articles', 'slug' => 'articles.delete', 'module' => 'articles', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 56, 'name' => 'Is global Articles', 'slug' => 'articles.is_global', 'module' => 'articles', 'is_active' => true, 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 52, 'name' => 'View Articles',       'slug' => 'articles.view',      'module' => 'articles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 53, 'name' => 'Create Articles',     'slug' => 'articles.create',    'module' => 'articles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 54, 'name' => 'Edit Articles',       'slug' => 'articles.edit',      'module' => 'articles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 55, 'name' => 'Delete Articles',     'slug' => 'articles.delete',    'module' => 'articles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 56, 'name' => 'Is global Articles',  'slug' => 'articles.is_global', 'module' => 'articles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+
+            // Vehicles
+            ['id' => 57, 'name' => 'View Vehicles',       'slug' => 'vehicles.view',      'module' => 'vehicles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 58, 'name' => 'Create Vehicles',     'slug' => 'vehicles.create',    'module' => 'vehicles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 59, 'name' => 'Edit Vehicles',       'slug' => 'vehicles.edit',      'module' => 'vehicles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 60, 'name' => 'Delete Vehicles',     'slug' => 'vehicles.delete',    'module' => 'vehicles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 61, 'name' => 'Is global Vehicles',  'slug' => 'vehicles.is_global', 'module' => 'vehicles',   'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+
+            // Refuelings
+            ['id' => 62, 'name' => 'View Refuelings',     'slug' => 'refuelings.view',      'module' => 'refuelings', 'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 63, 'name' => 'Create Refuelings',   'slug' => 'refuelings.create',    'module' => 'refuelings', 'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 64, 'name' => 'Edit Refuelings',     'slug' => 'refuelings.edit',      'module' => 'refuelings', 'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 65, 'name' => 'Delete Refuelings',   'slug' => 'refuelings.delete',    'module' => 'refuelings', 'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 66, 'name' => 'Is global Refuelings','slug' => 'refuelings.is_global', 'module' => 'refuelings', 'is_active' => true,  'created_at' => now(), 'updated_at' => now()],
         ];
 
         foreach ($permissions as $permission) {
@@ -122,6 +136,11 @@ class RolesAndPermissionsSeeder extends Seeder
             ['role_id' => 1, 'permission_id' => 48], ['role_id' => 1, 'permission_id' => 49], ['role_id' => 1, 'permission_id' => 50],
             ['role_id' => 1, 'permission_id' => 51], ['role_id' => 1, 'permission_id' => 52], ['role_id' => 1, 'permission_id' => 53],
             ['role_id' => 1, 'permission_id' => 54], ['role_id' => 1, 'permission_id' => 55], ['role_id' => 1, 'permission_id' => 56],
+            // Vehicles + Refuelings
+            ['role_id' => 1, 'permission_id' => 57], ['role_id' => 1, 'permission_id' => 58], ['role_id' => 1, 'permission_id' => 59],
+            ['role_id' => 1, 'permission_id' => 60], ['role_id' => 1, 'permission_id' => 61],
+            ['role_id' => 1, 'permission_id' => 62], ['role_id' => 1, 'permission_id' => 63], ['role_id' => 1, 'permission_id' => 64],
+            ['role_id' => 1, 'permission_id' => 65], ['role_id' => 1, 'permission_id' => 66],
 
             // Admin (role_id: 2)
             ['role_id' => 2, 'permission_id' => 1], ['role_id' => 2, 'permission_id' => 2], ['role_id' => 2, 'permission_id' => 3],
@@ -132,6 +151,11 @@ class RolesAndPermissionsSeeder extends Seeder
             ['role_id' => 2, 'permission_id' => 47], ['role_id' => 2, 'permission_id' => 49],
             ['role_id' => 2, 'permission_id' => 52], ['role_id' => 2, 'permission_id' => 53],
             ['role_id' => 2, 'permission_id' => 54], ['role_id' => 2, 'permission_id' => 55],
+            // Vehicles + Refuelings
+            ['role_id' => 2, 'permission_id' => 57], ['role_id' => 2, 'permission_id' => 58],
+            ['role_id' => 2, 'permission_id' => 59], ['role_id' => 2, 'permission_id' => 60],
+            ['role_id' => 2, 'permission_id' => 62], ['role_id' => 2, 'permission_id' => 63],
+            ['role_id' => 2, 'permission_id' => 64], ['role_id' => 2, 'permission_id' => 65],
 
             // User (role_id: 3)
             ['role_id' => 3, 'permission_id' => 1], ['role_id' => 3, 'permission_id' => 14], ['role_id' => 3, 'permission_id' => 30],

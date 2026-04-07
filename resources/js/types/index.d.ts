@@ -49,6 +49,41 @@ export interface Article {
     gallery: ArticleMedia[];
 }
 
+export interface Vehicle {
+    id: number;
+    name: string;
+    registration_number: string;
+    is_active: boolean;
+    created_at: string;
+    updated_at: string;
+    deleted_at?: string | null;
+}
+
+export interface VehicleOption {
+    id: number;
+    name: string;
+    registration_number: string;
+}
+
+export interface RefuelingVehicle {
+    id: number;
+    name: string;
+    registration_number: string;
+}
+
+export interface Refueling {
+    id: number;
+    vehicle_id: number;
+    fuel_quantity: number;
+    fuel_cost: number;
+    refueling_date: string;
+    odometer_reading: number;
+    created_at: string;
+    updated_at: string;
+    deleted_at?: string | null;
+    vehicle: RefuelingVehicle;
+}
+
 export interface NavigationItem {
     id: number;
     parent_id?: number | null;

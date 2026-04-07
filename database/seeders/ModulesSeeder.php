@@ -20,7 +20,9 @@ class ModulesSeeder extends Seeder
             ['id' => 10, 'name' => 'modules-list', 'web_root' => '/modules-list', 'description' => 'Seznam modulov', 'created_at' => now(), 'updated_at' => now()],
             ['id' => 11, 'name' => 'roles-permissions', 'web_root' => '/roles-permissions', 'description' => 'Pravice ki so na voljo za posamezne module.', 'created_at' => now(), 'updated_at' => now()],
             ['id' => 12, 'name' => 'notifications', 'web_root' => '/notifications', 'description' => 'Pošiljanje obvestil, emailov in SMS sporočil', 'created_at' => now(), 'updated_at' => now()],
-            ['id' => 13, 'name' => 'articles', 'web_root' => '/articles', 'description' => 'Upravljanje členkov - dodajanje, urejanje, brisanje in objava HTML vsebine', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 13, 'name' => 'articles',   'web_root' => '/articles',              'description' => 'Upravljanje členkov - dodajanje, urejanje, brisanje in objava HTML vsebine', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 14, 'name' => 'vehicles',   'web_root' => '/equipment/vehicles',    'description' => 'Upravljanje vozil - dodajanje, urejanje in soft delete vozil',                  'created_at' => now(), 'updated_at' => now()],
+            ['id' => 15, 'name' => 'refuelings', 'web_root' => '/equipment/refuelings',  'description' => 'Evidenca točenja goriva - beleženje količine, stroškov in stanja števca',       'created_at' => now(), 'updated_at' => now()],
         ];
 
         foreach ($modules as $module) {
